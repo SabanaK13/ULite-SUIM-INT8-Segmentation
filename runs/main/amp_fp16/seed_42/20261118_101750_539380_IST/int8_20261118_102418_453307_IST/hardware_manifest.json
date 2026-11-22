@@ -1,0 +1,6296 @@
+{
+  "format_version": 1,
+  "backend_reference": "qnnpack",
+  "weights": "signed int8; per-tensor symmetric calibration",
+  "activations": "unsigned uint8, affine, range 0..255",
+  "convolution_accumulator_target": "int32; check overflow in hardware implementation",
+  "input_preprocessing": "RGB bilinear resize; NCHW float32 image / 255",
+  "binary_decision": "dequantized output logit >= 0; quantized output code >= output zero point",
+  "quantized_convolutions": 45,
+  "raw_weight_bytes": 870016,
+  "lookup_table_bytes": 2816,
+  "unexpected_float_activation_nodes": [],
+  "lookup_lowering": [
+    {
+      "node": "integer_e1_act",
+      "operations": [
+        "GELU"
+      ],
+      "input_scale": 0.0254672858864069,
+      "input_zero_point": 135,
+      "output_scale": 0.013292689807713032,
+      "output_zero_point": 13
+    },
+    {
+      "node": "integer_e2_act",
+      "operations": [
+        "GELU"
+      ],
+      "input_scale": 0.04182456061244011,
+      "input_zero_point": 133,
+      "output_scale": 0.02406753972172737,
+      "output_zero_point": 7
+    },
+    {
+      "node": "integer_e3_act",
+      "operations": [
+        "GELU"
+      ],
+      "input_scale": 0.04514441266655922,
+      "input_zero_point": 139,
+      "output_scale": 0.025328146293759346,
+      "output_zero_point": 7
+    },
+    {
+      "node": "integer_e4_act",
+      "operations": [
+        "GELU"
+      ],
+      "input_scale": 0.044368594884872437,
+      "input_zero_point": 148,
+      "output_scale": 0.02292836830019951,
+      "output_zero_point": 7
+    },
+    {
+      "node": "integer_e5_act",
+      "operations": [
+        "GELU"
+      ],
+      "input_scale": 0.03512616455554962,
+      "input_zero_point": 146,
+      "output_scale": 0.01842789351940155,
+      "output_zero_point": 9
+    },
+    {
+      "node": "integer_b5_act",
+      "operations": [
+        "GELU",
+        "nearest2x"
+      ],
+      "input_scale": 0.04869212955236435,
+      "input_zero_point": 146,
+      "output_scale": 0.04776574671268463,
+      "output_zero_point": 101
+    },
+    {
+      "node": "integer_d5_act",
+      "operations": [
+        "GELU",
+        "nearest2x"
+      ],
+      "input_scale": 0.05039689317345619,
+      "input_zero_point": 142,
+      "output_scale": 0.05276021361351013,
+      "output_zero_point": 101
+    },
+    {
+      "node": "integer_d4_act",
+      "operations": [
+        "GELU",
+        "nearest2x"
+      ],
+      "input_scale": 0.06005029007792473,
+      "input_zero_point": 138,
+      "output_scale": 0.05830741673707962,
+      "output_zero_point": 99
+    },
+    {
+      "node": "integer_d3_act",
+      "operations": [
+        "GELU",
+        "nearest2x"
+      ],
+      "input_scale": 0.07249617576599121,
+      "input_zero_point": 118,
+      "output_scale": 0.06371980160474777,
+      "output_zero_point": 99
+    },
+    {
+      "node": "integer_d2_act",
+      "operations": [
+        "GELU",
+        "nearest2x"
+      ],
+      "input_scale": 0.06434544920921326,
+      "input_zero_point": 121,
+      "output_scale": 0.0738065168261528,
+      "output_zero_point": 130
+    },
+    {
+      "node": "integer_d1_act",
+      "operations": [
+        "GELU"
+      ],
+      "input_scale": 0.18196365237236023,
+      "input_zero_point": 131,
+      "output_scale": 0.09588617086410522,
+      "output_zero_point": 2
+    }
+  ],
+  "operators": [
+    {
+      "module": "conv_in",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.012780966237187386,
+        "zero_point": 143
+      },
+      "weight_key": "conv_in__weight_int8",
+      "bias_key": "conv_in__bias_fp32",
+      "weight_scale": 0.000940697209443897,
+      "weight_zero_point": 0,
+      "kernel": [
+        7,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          3,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 196608,
+        "scale": 0.003919653594493866,
+        "zero_point": 0
+      },
+      "bias_int32_candidate_key": "conv_in__bias_int32_candidate",
+      "requantization_real_multiplier": 0.0002884920537227346
+    },
+    {
+      "module": "e1.dw.dw_h",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.007961250841617584,
+        "zero_point": 102
+      },
+      "weight_key": "e1__dw__dw_h__weight_int8",
+      "bias_key": "e1__dw__dw_h__bias_fp32",
+      "weight_scale": 0.0030525506008416414,
+      "weight_zero_point": 0,
+      "kernel": [
+        7,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 16,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.012780966237187386,
+        "zero_point": 143
+      },
+      "bias_int32_candidate_key": "e1__dw__dw_h__bias_int32_candidate",
+      "requantization_real_multiplier": 0.004900554817681894
+    },
+    {
+      "module": "e1.dw.dw_w",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.010388871654868126,
+        "zero_point": 137
+      },
+      "weight_key": "e1__dw__dw_w__weight_int8",
+      "bias_key": "e1__dw__dw_w__bias_fp32",
+      "weight_scale": 0.0031791215296834707,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 16,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.012780966237187386,
+        "zero_point": 143
+      },
+      "bias_int32_candidate_key": "e1__dw__dw_w__bias_int32_candidate",
+      "requantization_real_multiplier": 0.003911131669025873
+    },
+    {
+      "module": "e1.bn",
+      "type": "torch.ao.nn.quantized.modules.batchnorm.BatchNorm2d",
+      "output": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.0738065168261528,
+        "zero_point": 130
+      },
+      "eps": 1e-05,
+      "array_prefix": "e1__bn"
+    },
+    {
+      "module": "e1.pw",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          32,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 2097152,
+        "scale": 0.0254672858864069,
+        "zero_point": 135
+      },
+      "weight_key": "e1__pw__weight_int8",
+      "bias_key": "e1__pw__bias_fp32",
+      "weight_scale": 0.002328340196982026,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.0738065168261528,
+        "zero_point": 130
+      },
+      "bias_int32_candidate_key": "e1__pw__bias_int32_candidate",
+      "requantization_real_multiplier": 0.006747742209046492
+    },
+    {
+      "module": "e1.down",
+      "type": "torch.nn.modules.pooling.MaxPool2d",
+      "output": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.0254672858864069,
+        "zero_point": 135
+      },
+      "kernel": [
+        2,
+        2
+      ],
+      "stride": [
+        2,
+        2
+      ],
+      "padding": 0
+    },
+    {
+      "module": "integer_e1_act",
+      "type": "quantization.IntegerLookup",
+      "output": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.013292689807713032,
+        "zero_point": 13
+      },
+      "table_key": "integer_e1_act__table_uint8",
+      "upsample_factor": 1
+    },
+    {
+      "module": "e2.dw.dw_h",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.012004588730633259,
+        "zero_point": 152
+      },
+      "weight_key": "e2__dw__dw_h__weight_int8",
+      "bias_key": "e2__dw__dw_h__bias_fp32",
+      "weight_scale": 0.0032642001751810312,
+      "weight_zero_point": 0,
+      "kernel": [
+        7,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 32,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.013292689807713032,
+        "zero_point": 13
+      },
+      "bias_int32_candidate_key": "e2__dw__dw_h__bias_int32_candidate",
+      "requantization_real_multiplier": 0.003614451221326855
+    },
+    {
+      "module": "e2.dw.dw_w",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.01991194672882557,
+        "zero_point": 157
+      },
+      "weight_key": "e2__dw__dw_w__weight_int8",
+      "bias_key": "e2__dw__dw_w__bias_fp32",
+      "weight_scale": 0.003170356387272477,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 32,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.013292689807713032,
+        "zero_point": 13
+      },
+      "bias_int32_candidate_key": "e2__dw__dw_w__bias_int32_candidate",
+      "requantization_real_multiplier": 0.002116446202364885
+    },
+    {
+      "module": "e2.bn",
+      "type": "torch.ao.nn.quantized.modules.batchnorm.BatchNorm2d",
+      "output": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.06371980160474777,
+        "zero_point": 99
+      },
+      "eps": 1e-05,
+      "array_prefix": "e2__bn"
+    },
+    {
+      "module": "e2.pw",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          64,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.04182456061244011,
+        "zero_point": 133
+      },
+      "weight_key": "e2__pw__weight_int8",
+      "bias_key": "e2__pw__bias_fp32",
+      "weight_scale": 0.0016891197301447392,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.06371980160474777,
+        "zero_point": 99
+      },
+      "bias_int32_candidate_key": "e2__pw__bias_int32_candidate",
+      "requantization_real_multiplier": 0.0025733772815649085
+    },
+    {
+      "module": "e2.down",
+      "type": "torch.nn.modules.pooling.MaxPool2d",
+      "output": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.04182456061244011,
+        "zero_point": 133
+      },
+      "kernel": [
+        2,
+        2
+      ],
+      "stride": [
+        2,
+        2
+      ],
+      "padding": 0
+    },
+    {
+      "module": "integer_e2_act",
+      "type": "quantization.IntegerLookup",
+      "output": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.02406753972172737,
+        "zero_point": 7
+      },
+      "table_key": "integer_e2_act__table_uint8",
+      "upsample_factor": 1
+    },
+    {
+      "module": "e3.dw.dw_h",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.02512137033045292,
+        "zero_point": 145
+      },
+      "weight_key": "e3__dw__dw_h__weight_int8",
+      "bias_key": "e3__dw__dw_h__bias_fp32",
+      "weight_scale": 0.003227844135835767,
+      "weight_zero_point": 0,
+      "kernel": [
+        7,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 64,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.02406753972172737,
+        "zero_point": 7
+      },
+      "bias_int32_candidate_key": "e3__dw__dw_h__bias_int32_candidate",
+      "requantization_real_multiplier": 0.003092437471876219
+    },
+    {
+      "module": "e3.dw.dw_w",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.031468115746974945,
+        "zero_point": 136
+      },
+      "weight_key": "e3__dw__dw_w__weight_int8",
+      "bias_key": "e3__dw__dw_w__bias_fp32",
+      "weight_scale": 0.0031399934086948633,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 64,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.02406753972172737,
+        "zero_point": 7
+      },
+      "bias_int32_candidate_key": "e3__dw__dw_w__bias_int32_candidate",
+      "requantization_real_multiplier": 0.002401539281772552
+    },
+    {
+      "module": "e3.bn",
+      "type": "torch.ao.nn.quantized.modules.batchnorm.BatchNorm2d",
+      "output": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.05830741673707962,
+        "zero_point": 99
+      },
+      "eps": 1e-05,
+      "array_prefix": "e3__bn"
+    },
+    {
+      "module": "e3.pw",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          128,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.04514441266655922,
+        "zero_point": 139
+      },
+      "weight_key": "e3__pw__weight_int8",
+      "bias_key": "e3__pw__bias_fp32",
+      "weight_scale": 0.001334150554612279,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.05830741673707962,
+        "zero_point": 99
+      },
+      "bias_int32_candidate_key": "e3__pw__bias_int32_candidate",
+      "requantization_real_multiplier": 0.001723156151179872
+    },
+    {
+      "module": "e3.down",
+      "type": "torch.nn.modules.pooling.MaxPool2d",
+      "output": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.04514441266655922,
+        "zero_point": 139
+      },
+      "kernel": [
+        2,
+        2
+      ],
+      "stride": [
+        2,
+        2
+      ],
+      "padding": 0
+    },
+    {
+      "module": "integer_e3_act",
+      "type": "quantization.IntegerLookup",
+      "output": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.025328146293759346,
+        "zero_point": 7
+      },
+      "table_key": "integer_e3_act__table_uint8",
+      "upsample_factor": 1
+    },
+    {
+      "module": "e4.dw.dw_h",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.022393682971596718,
+        "zero_point": 132
+      },
+      "weight_key": "e4__dw__dw_h__weight_int8",
+      "bias_key": "e4__dw__dw_h__bias_fp32",
+      "weight_scale": 0.0032165497541427612,
+      "weight_zero_point": 0,
+      "kernel": [
+        7,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 128,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.025328146293759346,
+        "zero_point": 7
+      },
+      "bias_int32_candidate_key": "e4__dw__dw_h__bias_int32_candidate",
+      "requantization_real_multiplier": 0.0036380457309061645
+    },
+    {
+      "module": "e4.dw.dw_w",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.02869148924946785,
+        "zero_point": 137
+      },
+      "weight_key": "e4__dw__dw_w__weight_int8",
+      "bias_key": "e4__dw__dw_w__bias_fp32",
+      "weight_scale": 0.00314694712869823,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 128,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.025328146293759346,
+        "zero_point": 7
+      },
+      "bias_int32_candidate_key": "e4__dw__dw_w__bias_int32_candidate",
+      "requantization_real_multiplier": 0.0027780481020473003
+    },
+    {
+      "module": "e4.bn",
+      "type": "torch.ao.nn.quantized.modules.batchnorm.BatchNorm2d",
+      "output": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.05276021361351013,
+        "zero_point": 101
+      },
+      "eps": 1e-05,
+      "array_prefix": "e4__bn"
+    },
+    {
+      "module": "e4.pw",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          256,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.044368594884872437,
+        "zero_point": 148
+      },
+      "weight_key": "e4__pw__weight_int8",
+      "bias_key": "e4__pw__bias_fp32",
+      "weight_scale": 0.001167848939076066,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.05276021361351013,
+        "zero_point": 101
+      },
+      "bias_int32_candidate_key": "e4__pw__bias_int32_candidate",
+      "requantization_real_multiplier": 0.001388729114677745
+    },
+    {
+      "module": "e4.down",
+      "type": "torch.nn.modules.pooling.MaxPool2d",
+      "output": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.044368594884872437,
+        "zero_point": 148
+      },
+      "kernel": [
+        2,
+        2
+      ],
+      "stride": [
+        2,
+        2
+      ],
+      "padding": 0
+    },
+    {
+      "module": "integer_e4_act",
+      "type": "quantization.IntegerLookup",
+      "output": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.02292836830019951,
+        "zero_point": 7
+      },
+      "table_key": "integer_e4_act__table_uint8",
+      "upsample_factor": 1
+    },
+    {
+      "module": "e5.dw.dw_h",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.021250806748867035,
+        "zero_point": 133
+      },
+      "weight_key": "e5__dw__dw_h__weight_int8",
+      "bias_key": "e5__dw__dw_h__bias_fp32",
+      "weight_scale": 0.003300914540886879,
+      "weight_zero_point": 0,
+      "kernel": [
+        7,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 256,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.02292836830019951,
+        "zero_point": 7
+      },
+      "bias_int32_candidate_key": "e5__dw__dw_h__bias_int32_candidate",
+      "requantization_real_multiplier": 0.0035614922866386415
+    },
+    {
+      "module": "e5.dw.dw_w",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.024861229583621025,
+        "zero_point": 123
+      },
+      "weight_key": "e5__dw__dw_w__weight_int8",
+      "bias_key": "e5__dw__dw_w__bias_fp32",
+      "weight_scale": 0.0031819536816328764,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 256,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.02292836830019951,
+        "zero_point": 7
+      },
+      "bias_int32_candidate_key": "e5__dw__dw_w__bias_int32_candidate",
+      "requantization_real_multiplier": 0.0029345694942908055
+    },
+    {
+      "module": "e5.bn",
+      "type": "torch.ao.nn.quantized.modules.batchnorm.BatchNorm2d",
+      "output": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.04776574671268463,
+        "zero_point": 101
+      },
+      "eps": 1e-05,
+      "array_prefix": "e5__bn"
+    },
+    {
+      "module": "e5.pw",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          512,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.03512616455554962,
+        "zero_point": 146
+      },
+      "weight_key": "e5__pw__weight_int8",
+      "bias_key": "e5__pw__bias_fp32",
+      "weight_scale": 0.0009749327437020838,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.04776574671268463,
+        "zero_point": 101
+      },
+      "bias_int32_candidate_key": "e5__pw__bias_int32_candidate",
+      "requantization_real_multiplier": 0.0013257465221952057
+    },
+    {
+      "module": "e5.down",
+      "type": "torch.nn.modules.pooling.MaxPool2d",
+      "output": {
+        "shape": [
+          1,
+          512,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 32768,
+        "scale": 0.03512616455554962,
+        "zero_point": 146
+      },
+      "kernel": [
+        2,
+        2
+      ],
+      "stride": [
+        2,
+        2
+      ],
+      "padding": 0
+    },
+    {
+      "module": "integer_e5_act",
+      "type": "quantization.IntegerLookup",
+      "output": {
+        "shape": [
+          1,
+          512,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 32768,
+        "scale": 0.01842789351940155,
+        "zero_point": 9
+      },
+      "table_key": "integer_e5_act__table_uint8",
+      "upsample_factor": 1
+    },
+    {
+      "module": "b5.pw1",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.032814476639032364,
+        "zero_point": 144
+      },
+      "weight_key": "b5__pw1__weight_int8",
+      "bias_key": "b5__pw1__bias_fp32",
+      "weight_scale": 0.0007254384690895677,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          512,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 32768,
+        "scale": 0.01842789351940155,
+        "zero_point": 9
+      },
+      "bias_int32_candidate_key": "b5__pw1__bias_int32_candidate",
+      "requantization_real_multiplier": 0.0004073904030320208
+    },
+    {
+      "module": "b5.dw1.dw_h",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.0136363934725523,
+        "zero_point": 123
+      },
+      "weight_key": "b5__dw1__dw_h__weight_int8",
+      "bias_key": "b5__dw1__dw_h__bias_fp32",
+      "weight_scale": 0.00477256253361702,
+      "weight_zero_point": 0,
+      "kernel": [
+        3,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        1,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 128,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.032814476639032364,
+        "zero_point": 144
+      },
+      "bias_int32_candidate_key": "b5__dw1__dw_h__bias_int32_candidate",
+      "requantization_real_multiplier": 0.011484645268041284
+    },
+    {
+      "module": "b5.dw1.dw_w",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.0170458797365427,
+        "zero_point": 142
+      },
+      "weight_key": "b5__dw1__dw_w__weight_int8",
+      "bias_key": "b5__dw1__dw_w__bias_fp32",
+      "weight_scale": 0.004781661089509726,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        3
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        1
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 128,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.032814476639032364,
+        "zero_point": 144
+      },
+      "bias_int32_candidate_key": "b5__dw1__dw_w__bias_int32_candidate",
+      "requantization_real_multiplier": 0.009205022477139184
+    },
+    {
+      "module": "b5.dw2.dw_h",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.015118842013180256,
+        "zero_point": 118
+      },
+      "weight_key": "b5__dw2__dw_h__weight_int8",
+      "bias_key": "b5__dw2__dw_h__bias_fp32",
+      "weight_scale": 0.004970528185367584,
+      "weight_zero_point": 0,
+      "kernel": [
+        3,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        2,
+        0
+      ],
+      "dilation": [
+        2,
+        2
+      ],
+      "groups": 128,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.032814476639032364,
+        "zero_point": 144
+      },
+      "bias_int32_candidate_key": "b5__dw2__dw_h__bias_int32_candidate",
+      "requantization_real_multiplier": 0.010788212541688385
+    },
+    {
+      "module": "b5.dw2.dw_w",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.01573759689927101,
+        "zero_point": 129
+      },
+      "weight_key": "b5__dw2__dw_w__weight_int8",
+      "bias_key": "b5__dw2__dw_w__bias_fp32",
+      "weight_scale": 0.004770506173372269,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        3
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        2
+      ],
+      "dilation": [
+        2,
+        2
+      ],
+      "groups": 128,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.032814476639032364,
+        "zero_point": 144
+      },
+      "bias_int32_candidate_key": "b5__dw2__dw_w__bias_int32_candidate",
+      "requantization_real_multiplier": 0.009946986467148313
+    },
+    {
+      "module": "b5.dw3.dw_h",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.012470274232327938,
+        "zero_point": 123
+      },
+      "weight_key": "b5__dw3__dw_h__weight_int8",
+      "bias_key": "b5__dw3__dw_h__bias_fp32",
+      "weight_scale": 0.004982515703886747,
+      "weight_zero_point": 0,
+      "kernel": [
+        3,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        0
+      ],
+      "dilation": [
+        3,
+        3
+      ],
+      "groups": 128,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.032814476639032364,
+        "zero_point": 144
+      },
+      "bias_int32_candidate_key": "b5__dw3__dw_h__bias_int32_candidate",
+      "requantization_real_multiplier": 0.013111070544459215
+    },
+    {
+      "module": "b5.dw3.dw_w",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.013633662834763527,
+        "zero_point": 120
+      },
+      "weight_key": "b5__dw3__dw_w__weight_int8",
+      "bias_key": "b5__dw3__dw_w__bias_fp32",
+      "weight_scale": 0.004957444500178099,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        3
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        3
+      ],
+      "dilation": [
+        3,
+        3
+      ],
+      "groups": 128,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.032814476639032364,
+        "zero_point": 144
+      },
+      "bias_int32_candidate_key": "b5__dw3__dw_w__bias_int32_candidate",
+      "requantization_real_multiplier": 0.011931932651700733
+    },
+    {
+      "module": "b5.bn",
+      "type": "torch.ao.nn.quantized.modules.batchnorm.BatchNorm2d",
+      "output": {
+        "shape": [
+          1,
+          512,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 32768,
+        "scale": 0.04568571224808693,
+        "zero_point": 128
+      },
+      "eps": 1e-05,
+      "array_prefix": "b5__bn"
+    },
+    {
+      "module": "b5.pw2",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          512,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 32768,
+        "scale": 0.04869212955236435,
+        "zero_point": 146
+      },
+      "weight_key": "b5__pw2__weight_int8",
+      "bias_key": "b5__pw2__bias_fp32",
+      "weight_scale": 0.0011409196304157376,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          512,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 32768,
+        "scale": 0.04568571224808693,
+        "zero_point": 128
+      },
+      "bias_int32_candidate_key": "b5__pw2__bias_int32_candidate",
+      "requantization_real_multiplier": 0.0010704753809814855
+    },
+    {
+      "module": "integer_b5_act",
+      "type": "quantization.IntegerLookup",
+      "output": {
+        "shape": [
+          1,
+          512,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.04776574671268463,
+        "zero_point": 101
+      },
+      "table_key": "integer_b5_act__table_uint8",
+      "upsample_factor": 2
+    },
+    {
+      "module": "d5.pw",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.04372554272413254,
+        "zero_point": 126
+      },
+      "weight_key": "d5__pw__weight_int8",
+      "bias_key": "d5__pw__bias_fp32",
+      "weight_scale": 0.0016088481061160564,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          768,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 196608,
+        "scale": 0.04776574671268463,
+        "zero_point": 101
+      },
+      "bias_int32_candidate_key": "d5__pw__bias_int32_candidate",
+      "requantization_real_multiplier": 0.0017575043406724573
+    },
+    {
+      "module": "d5.dw.dw_h",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.03394828364253044,
+        "zero_point": 129
+      },
+      "weight_key": "d5__dw__dw_h__weight_int8",
+      "bias_key": "d5__dw__dw_h__bias_fp32",
+      "weight_scale": 0.0033978791907429695,
+      "weight_zero_point": 0,
+      "kernel": [
+        7,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 256,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.04372554272413254,
+        "zero_point": 126
+      },
+      "bias_int32_candidate_key": "d5__dw__dw_h__bias_int32_candidate",
+      "requantization_real_multiplier": 0.0043764837507171885
+    },
+    {
+      "module": "d5.dw.dw_w",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.03054134175181389,
+        "zero_point": 127
+      },
+      "weight_key": "d5__dw__dw_w__weight_int8",
+      "bias_key": "d5__dw__dw_w__bias_fp32",
+      "weight_scale": 0.003319708164781332,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 256,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.04372554272413254,
+        "zero_point": 126
+      },
+      "bias_int32_candidate_key": "d5__dw__dw_w__bias_int32_candidate",
+      "requantization_real_multiplier": 0.004752772238049324
+    },
+    {
+      "module": "d5.pw2",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.05039689317345619,
+        "zero_point": 142
+      },
+      "weight_key": "d5__pw2__weight_int8",
+      "bias_key": "d5__pw2__bias_fp32",
+      "weight_scale": 0.0011233333498239517,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.06859655678272247,
+        "zero_point": 133
+      },
+      "bias_int32_candidate_key": "d5__pw2__bias_int32_candidate",
+      "requantization_real_multiplier": 0.0015289990129334005
+    },
+    {
+      "module": "integer_d5_act",
+      "type": "quantization.IntegerLookup",
+      "output": {
+        "shape": [
+          1,
+          256,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.05276021361351013,
+        "zero_point": 101
+      },
+      "table_key": "integer_d5_act__table_uint8",
+      "upsample_factor": 2
+    },
+    {
+      "module": "d4.pw",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.05046489089727402,
+        "zero_point": 125
+      },
+      "weight_key": "d4__pw__weight_int8",
+      "bias_key": "d4__pw__bias_fp32",
+      "weight_scale": 0.002522755414247513,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          384,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 393216,
+        "scale": 0.05276021361351013,
+        "zero_point": 101
+      },
+      "bias_int32_candidate_key": "d4__pw__bias_int32_candidate",
+      "requantization_real_multiplier": 0.0026374993026593027
+    },
+    {
+      "module": "d4.dw.dw_h",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.037334516644477844,
+        "zero_point": 125
+      },
+      "weight_key": "d4__dw__dw_h__weight_int8",
+      "bias_key": "d4__dw__dw_h__bias_fp32",
+      "weight_scale": 0.003358154557645321,
+      "weight_zero_point": 0,
+      "kernel": [
+        7,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 128,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.05046489089727402,
+        "zero_point": 125
+      },
+      "bias_int32_candidate_key": "d4__dw__dw_h__bias_int32_candidate",
+      "requantization_real_multiplier": 0.004539201752135735
+    },
+    {
+      "module": "d4.dw.dw_w",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.040232814848423004,
+        "zero_point": 131
+      },
+      "weight_key": "d4__dw__dw_w__weight_int8",
+      "bias_key": "d4__dw__dw_w__bias_fp32",
+      "weight_scale": 0.00330438744276762,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 128,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.05046489089727402,
+        "zero_point": 125
+      },
+      "bias_int32_candidate_key": "d4__dw__dw_w__bias_int32_candidate",
+      "requantization_real_multiplier": 0.004144764725258256
+    },
+    {
+      "module": "d4.pw2",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.06005029007792473,
+        "zero_point": 138
+      },
+      "weight_key": "d4__pw2__weight_int8",
+      "bias_key": "d4__pw2__bias_fp32",
+      "weight_scale": 0.0014318011235445738,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.08650889992713928,
+        "zero_point": 126
+      },
+      "bias_int32_candidate_key": "d4__pw2__bias_int32_candidate",
+      "requantization_real_multiplier": 0.002062663476755077
+    },
+    {
+      "module": "integer_d4_act",
+      "type": "quantization.IntegerLookup",
+      "output": {
+        "shape": [
+          1,
+          128,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.05830741673707962,
+        "zero_point": 99
+      },
+      "table_key": "integer_d4_act__table_uint8",
+      "upsample_factor": 2
+    },
+    {
+      "module": "d3.pw",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.04894033819437027,
+        "zero_point": 134
+      },
+      "weight_key": "d3__pw__weight_int8",
+      "bias_key": "d3__pw__bias_fp32",
+      "weight_scale": 0.002256386447697878,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          192,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 786432,
+        "scale": 0.05830741673707962,
+        "zero_point": 99
+      },
+      "bias_int32_candidate_key": "d3__pw__bias_int32_candidate",
+      "requantization_real_multiplier": 0.0026882541024400406
+    },
+    {
+      "module": "d3.dw.dw_h",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.04007359594106674,
+        "zero_point": 123
+      },
+      "weight_key": "d3__dw__dw_h__weight_int8",
+      "bias_key": "d3__dw__dw_h__bias_fp32",
+      "weight_scale": 0.00355991767719388,
+      "weight_zero_point": 0,
+      "kernel": [
+        7,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 64,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.04894033819437027,
+        "zero_point": 134
+      },
+      "bias_int32_candidate_key": "d3__dw__dw_h__bias_int32_candidate",
+      "requantization_real_multiplier": 0.004347590251750883
+    },
+    {
+      "module": "d3.dw.dw_w",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.04121106490492821,
+        "zero_point": 125
+      },
+      "weight_key": "d3__dw__dw_w__weight_int8",
+      "bias_key": "d3__dw__dw_w__bias_fp32",
+      "weight_scale": 0.003505375934764743,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 64,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.04894033819437027,
+        "zero_point": 134
+      },
+      "bias_int32_candidate_key": "d3__dw__dw_w__bias_int32_candidate",
+      "requantization_real_multiplier": 0.004162820935143515
+    },
+    {
+      "module": "d3.pw2",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.07249617576599121,
+        "zero_point": 118
+      },
+      "weight_key": "d3__pw2__weight_int8",
+      "bias_key": "d3__pw2__bias_fp32",
+      "weight_scale": 0.00181831163354218,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.09905567020177841,
+        "zero_point": 122
+      },
+      "bias_int32_candidate_key": "d3__pw2__bias_int32_candidate",
+      "requantization_real_multiplier": 0.002484463153995838
+    },
+    {
+      "module": "integer_d3_act",
+      "type": "quantization.IntegerLookup",
+      "output": {
+        "shape": [
+          1,
+          64,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.06371980160474777,
+        "zero_point": 99
+      },
+      "table_key": "integer_d3_act__table_uint8",
+      "upsample_factor": 2
+    },
+    {
+      "module": "d2.pw",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.04048904776573181,
+        "zero_point": 124
+      },
+      "weight_key": "d2__pw__weight_int8",
+      "bias_key": "d2__pw__bias_fp32",
+      "weight_scale": 0.0021366768050938845,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          96,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1572864,
+        "scale": 0.06371980160474777,
+        "zero_point": 99
+      },
+      "bias_int32_candidate_key": "d2__pw__bias_int32_candidate",
+      "requantization_real_multiplier": 0.0033626037071012318
+    },
+    {
+      "module": "d2.dw.dw_h",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.04771610349416733,
+        "zero_point": 120
+      },
+      "weight_key": "d2__dw__dw_h__weight_int8",
+      "bias_key": "d2__dw__dw_h__bias_fp32",
+      "weight_scale": 0.0032550632022321224,
+      "weight_zero_point": 0,
+      "kernel": [
+        7,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 32,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.04048904776573181,
+        "zero_point": 124
+      },
+      "bias_int32_candidate_key": "d2__dw__dw_h__bias_int32_candidate",
+      "requantization_real_multiplier": 0.0027620530559827145
+    },
+    {
+      "module": "d2.dw.dw_w",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.03930909186601639,
+        "zero_point": 132
+      },
+      "weight_key": "d2__dw__dw_w__weight_int8",
+      "bias_key": "d2__dw__dw_w__bias_fp32",
+      "weight_scale": 0.003214981872588396,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 32,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.04048904776573181,
+        "zero_point": 124
+      },
+      "bias_int32_candidate_key": "d2__dw__dw_w__bias_int32_candidate",
+      "requantization_real_multiplier": 0.003311487201202167
+    },
+    {
+      "module": "d2.pw2",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.06434544920921326,
+        "zero_point": 121
+      },
+      "weight_key": "d2__pw2__weight_int8",
+      "bias_key": "d2__pw2__bias_fp32",
+      "weight_scale": 0.002052654279395938,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.10943175107240677,
+        "zero_point": 121
+      },
+      "bias_int32_candidate_key": "d2__pw2__bias_int32_candidate",
+      "requantization_real_multiplier": 0.0034909314473851546
+    },
+    {
+      "module": "integer_d2_act",
+      "type": "quantization.IntegerLookup",
+      "output": {
+        "shape": [
+          1,
+          32,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 2097152,
+        "scale": 0.0738065168261528,
+        "zero_point": 130
+      },
+      "table_key": "integer_d2_act__table_uint8",
+      "upsample_factor": 2
+    },
+    {
+      "module": "d1.pw",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.043199263513088226,
+        "zero_point": 134
+      },
+      "weight_key": "d1__pw__weight_int8",
+      "bias_key": "d1__pw__bias_fp32",
+      "weight_scale": 0.0037604565732181072,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          48,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 3145728,
+        "scale": 0.0738065168261528,
+        "zero_point": 130
+      },
+      "bias_int32_candidate_key": "d1__pw__bias_int32_candidate",
+      "requantization_real_multiplier": 0.006424790118497044
+    },
+    {
+      "module": "d1.dw.dw_h",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.0560811348259449,
+        "zero_point": 122
+      },
+      "weight_key": "d1__dw__dw_h__weight_int8",
+      "bias_key": "d1__dw__dw_h__bias_fp32",
+      "weight_scale": 0.0039330595172941685,
+      "weight_zero_point": 0,
+      "kernel": [
+        7,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        3,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 16,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.043199263513088226,
+        "zero_point": 134
+      },
+      "bias_int32_candidate_key": "d1__dw__dw_h__bias_int32_candidate",
+      "requantization_real_multiplier": 0.0030296333165791577
+    },
+    {
+      "module": "d1.dw.dw_w",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.07295357435941696,
+        "zero_point": 132
+      },
+      "weight_key": "d1__dw__dw_w__weight_int8",
+      "bias_key": "d1__dw__dw_w__bias_fp32",
+      "weight_scale": 0.00431432668119669,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        7
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        3
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 16,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.043199263513088226,
+        "zero_point": 134
+      },
+      "bias_int32_candidate_key": "d1__dw__dw_w__bias_int32_candidate",
+      "requantization_real_multiplier": 0.0025547169802038012
+    },
+    {
+      "module": "d1.pw2",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.18196365237236023,
+        "zero_point": 131
+      },
+      "weight_key": "d1__pw2__weight_int8",
+      "bias_key": "d1__pw2__bias_fp32",
+      "weight_scale": 0.00354597344994545,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.13806484639644623,
+        "zero_point": 120
+      },
+      "bias_int32_candidate_key": "d1__pw2__bias_int32_candidate",
+      "requantization_real_multiplier": 0.0026905058966983013
+    },
+    {
+      "module": "integer_d1_act",
+      "type": "quantization.IntegerLookup",
+      "output": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.09588617086410522,
+        "zero_point": 2
+      },
+      "table_key": "integer_d1_act__table_uint8",
+      "upsample_factor": 1
+    },
+    {
+      "module": "conv_out",
+      "type": "torch.ao.nn.quantized.modules.conv.Conv2d",
+      "output": {
+        "shape": [
+          1,
+          1,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.13930772244930267,
+        "zero_point": 153
+      },
+      "weight_key": "conv_out__weight_int8",
+      "bias_key": "conv_out__bias_fp32",
+      "weight_scale": 0.0025469642132520676,
+      "weight_zero_point": 0,
+      "kernel": [
+        1,
+        1
+      ],
+      "stride": [
+        1,
+        1
+      ],
+      "padding": [
+        0,
+        0
+      ],
+      "dilation": [
+        1,
+        1
+      ],
+      "groups": 1,
+      "weight_layout": "OIHW",
+      "input": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.09588617086410522,
+        "zero_point": 2
+      },
+      "bias_int32_candidate_key": "conv_out__bias_int32_candidate",
+      "requantization_real_multiplier": 0.0017530876353644067
+    }
+  ],
+  "graph": [
+    {
+      "name": "x",
+      "kind": "placeholder",
+      "target": "x",
+      "inputs": [],
+      "output": {
+        "shape": [
+          1,
+          3,
+          256,
+          256
+        ],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 196608
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "conv_in_input_scale_0",
+      "kind": "get_attr",
+      "target": "conv_in_input_scale_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "conv_in_input_zero_point_0",
+      "kind": "get_attr",
+      "target": "conv_in_input_zero_point_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "quantize_per_tensor",
+      "kind": "call_function",
+      "target": "<built-in method quantize_per_tensor of type object at 0x76b9d8da0f40>",
+      "inputs": [
+        "x",
+        "conv_in_input_scale_0",
+        "conv_in_input_zero_point_0"
+      ],
+      "output": {
+        "shape": [
+          1,
+          3,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 196608,
+        "scale": 0.003919653594493866,
+        "zero_point": 0
+      },
+      "args_repr": "(x, conv_in_input_scale_0, conv_in_input_zero_point_0, torch.quint8)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "conv_in",
+      "kind": "call_module",
+      "target": "conv_in",
+      "inputs": [
+        "quantize_per_tensor"
+      ],
+      "output": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.012780966237187386,
+        "zero_point": 143
+      },
+      "args_repr": "(quantize_per_tensor,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "e1_dw_dw_h",
+      "kind": "call_module",
+      "target": "e1.dw.dw_h",
+      "inputs": [
+        "conv_in"
+      ],
+      "output": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.007961250841617584,
+        "zero_point": 102
+      },
+      "args_repr": "(conv_in,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "e1_dw_scale_0",
+      "kind": "get_attr",
+      "target": "e1_dw_scale_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "e1_dw_zero_point_0",
+      "kind": "get_attr",
+      "target": "e1_dw_zero_point_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_26",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "conv_in",
+        "e1_dw_dw_h",
+        "e1_dw_scale_0",
+        "e1_dw_zero_point_0"
+      ],
+      "output": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.01731298677623272,
+        "zero_point": 106
+      },
+      "args_repr": "(conv_in, e1_dw_dw_h, e1_dw_scale_0, e1_dw_zero_point_0)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "e1_dw_dw_w",
+      "kind": "call_module",
+      "target": "e1.dw.dw_w",
+      "inputs": [
+        "conv_in"
+      ],
+      "output": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.010388871654868126,
+        "zero_point": 137
+      },
+      "args_repr": "(conv_in,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "e1_dw_scale_1",
+      "kind": "get_attr",
+      "target": "e1_dw_scale_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "e1_dw_zero_point_1",
+      "kind": "get_attr",
+      "target": "e1_dw_zero_point_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_27",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "add_26",
+        "e1_dw_dw_w",
+        "e1_dw_scale_1",
+        "e1_dw_zero_point_1"
+      ],
+      "output": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.024229397997260094,
+        "zero_point": 113
+      },
+      "args_repr": "(add_26, e1_dw_dw_w, e1_dw_scale_1, e1_dw_zero_point_1)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "e1_bn",
+      "kind": "call_module",
+      "target": "e1.bn",
+      "inputs": [
+        "add_27"
+      ],
+      "output": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.0738065168261528,
+        "zero_point": 130
+      },
+      "args_repr": "(add_27,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.batchnorm.BatchNorm2d"
+    },
+    {
+      "name": "e1_pw",
+      "kind": "call_module",
+      "target": "e1.pw",
+      "inputs": [
+        "e1_bn"
+      ],
+      "output": {
+        "shape": [
+          1,
+          32,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 2097152,
+        "scale": 0.0254672858864069,
+        "zero_point": 135
+      },
+      "args_repr": "(e1_bn,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "e1_down",
+      "kind": "call_module",
+      "target": "e1.down",
+      "inputs": [
+        "e1_pw"
+      ],
+      "output": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.0254672858864069,
+        "zero_point": 135
+      },
+      "args_repr": "(e1_pw,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.nn.modules.pooling.MaxPool2d"
+    },
+    {
+      "name": "integer_e1_act",
+      "kind": "call_module",
+      "target": "integer_e1_act",
+      "inputs": [
+        "e1_down"
+      ],
+      "output": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.013292689807713032,
+        "zero_point": 13
+      },
+      "args_repr": "(e1_down,)",
+      "kwargs_repr": "{}",
+      "module_type": "quantization.IntegerLookup"
+    },
+    {
+      "name": "e2_dw_dw_h",
+      "kind": "call_module",
+      "target": "e2.dw.dw_h",
+      "inputs": [
+        "integer_e1_act"
+      ],
+      "output": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.012004588730633259,
+        "zero_point": 152
+      },
+      "args_repr": "(integer_e1_act,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "e2_dw_scale_0",
+      "kind": "get_attr",
+      "target": "e2_dw_scale_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "e2_dw_zero_point_0",
+      "kind": "get_attr",
+      "target": "e2_dw_zero_point_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_28",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "integer_e1_act",
+        "e2_dw_dw_h",
+        "e2_dw_scale_0",
+        "e2_dw_zero_point_0"
+      ],
+      "output": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.02190626598894596,
+        "zero_point": 68
+      },
+      "args_repr": "(integer_e1_act, e2_dw_dw_h, e2_dw_scale_0, e2_dw_zero_point_0)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "e2_dw_dw_w",
+      "kind": "call_module",
+      "target": "e2.dw.dw_w",
+      "inputs": [
+        "integer_e1_act"
+      ],
+      "output": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.01991194672882557,
+        "zero_point": 157
+      },
+      "args_repr": "(integer_e1_act,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "e2_dw_scale_1",
+      "kind": "get_attr",
+      "target": "e2_dw_scale_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "e2_dw_zero_point_1",
+      "kind": "get_attr",
+      "target": "e2_dw_zero_point_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_29",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "add_28",
+        "e2_dw_dw_w",
+        "e2_dw_scale_1",
+        "e2_dw_zero_point_1"
+      ],
+      "output": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.026631688699126244,
+        "zero_point": 88
+      },
+      "args_repr": "(add_28, e2_dw_dw_w, e2_dw_scale_1, e2_dw_zero_point_1)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "e2_bn",
+      "kind": "call_module",
+      "target": "e2.bn",
+      "inputs": [
+        "add_29"
+      ],
+      "output": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.06371980160474777,
+        "zero_point": 99
+      },
+      "args_repr": "(add_29,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.batchnorm.BatchNorm2d"
+    },
+    {
+      "name": "e2_pw",
+      "kind": "call_module",
+      "target": "e2.pw",
+      "inputs": [
+        "e2_bn"
+      ],
+      "output": {
+        "shape": [
+          1,
+          64,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.04182456061244011,
+        "zero_point": 133
+      },
+      "args_repr": "(e2_bn,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "e2_down",
+      "kind": "call_module",
+      "target": "e2.down",
+      "inputs": [
+        "e2_pw"
+      ],
+      "output": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.04182456061244011,
+        "zero_point": 133
+      },
+      "args_repr": "(e2_pw,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.nn.modules.pooling.MaxPool2d"
+    },
+    {
+      "name": "integer_e2_act",
+      "kind": "call_module",
+      "target": "integer_e2_act",
+      "inputs": [
+        "e2_down"
+      ],
+      "output": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.02406753972172737,
+        "zero_point": 7
+      },
+      "args_repr": "(e2_down,)",
+      "kwargs_repr": "{}",
+      "module_type": "quantization.IntegerLookup"
+    },
+    {
+      "name": "e3_dw_dw_h",
+      "kind": "call_module",
+      "target": "e3.dw.dw_h",
+      "inputs": [
+        "integer_e2_act"
+      ],
+      "output": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.02512137033045292,
+        "zero_point": 145
+      },
+      "args_repr": "(integer_e2_act,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "e3_dw_scale_0",
+      "kind": "get_attr",
+      "target": "e3_dw_scale_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "e3_dw_zero_point_0",
+      "kind": "get_attr",
+      "target": "e3_dw_zero_point_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_30",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "integer_e2_act",
+        "e3_dw_dw_h",
+        "e3_dw_scale_0",
+        "e3_dw_zero_point_0"
+      ],
+      "output": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.03559817001223564,
+        "zero_point": 63
+      },
+      "args_repr": "(integer_e2_act, e3_dw_dw_h, e3_dw_scale_0, e3_dw_zero_point_0)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "e3_dw_dw_w",
+      "kind": "call_module",
+      "target": "e3.dw.dw_w",
+      "inputs": [
+        "integer_e2_act"
+      ],
+      "output": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.031468115746974945,
+        "zero_point": 136
+      },
+      "args_repr": "(integer_e2_act,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "e3_dw_scale_1",
+      "kind": "get_attr",
+      "target": "e3_dw_scale_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "e3_dw_zero_point_1",
+      "kind": "get_attr",
+      "target": "e3_dw_zero_point_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_31",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "add_30",
+        "e3_dw_dw_w",
+        "e3_dw_scale_1",
+        "e3_dw_zero_point_1"
+      ],
+      "output": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.04981031268835068,
+        "zero_point": 86
+      },
+      "args_repr": "(add_30, e3_dw_dw_w, e3_dw_scale_1, e3_dw_zero_point_1)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "e3_bn",
+      "kind": "call_module",
+      "target": "e3.bn",
+      "inputs": [
+        "add_31"
+      ],
+      "output": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.05830741673707962,
+        "zero_point": 99
+      },
+      "args_repr": "(add_31,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.batchnorm.BatchNorm2d"
+    },
+    {
+      "name": "e3_pw",
+      "kind": "call_module",
+      "target": "e3.pw",
+      "inputs": [
+        "e3_bn"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.04514441266655922,
+        "zero_point": 139
+      },
+      "args_repr": "(e3_bn,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "e3_down",
+      "kind": "call_module",
+      "target": "e3.down",
+      "inputs": [
+        "e3_pw"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.04514441266655922,
+        "zero_point": 139
+      },
+      "args_repr": "(e3_pw,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.nn.modules.pooling.MaxPool2d"
+    },
+    {
+      "name": "integer_e3_act",
+      "kind": "call_module",
+      "target": "integer_e3_act",
+      "inputs": [
+        "e3_down"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.025328146293759346,
+        "zero_point": 7
+      },
+      "args_repr": "(e3_down,)",
+      "kwargs_repr": "{}",
+      "module_type": "quantization.IntegerLookup"
+    },
+    {
+      "name": "e4_dw_dw_h",
+      "kind": "call_module",
+      "target": "e4.dw.dw_h",
+      "inputs": [
+        "integer_e3_act"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.022393682971596718,
+        "zero_point": 132
+      },
+      "args_repr": "(integer_e3_act,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "e4_dw_scale_0",
+      "kind": "get_attr",
+      "target": "e4_dw_scale_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "e4_dw_zero_point_0",
+      "kind": "get_attr",
+      "target": "e4_dw_zero_point_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_32",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "integer_e3_act",
+        "e4_dw_dw_h",
+        "e4_dw_scale_0",
+        "e4_dw_zero_point_0"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.041668180376291275,
+        "zero_point": 64
+      },
+      "args_repr": "(integer_e3_act, e4_dw_dw_h, e4_dw_scale_0, e4_dw_zero_point_0)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "e4_dw_dw_w",
+      "kind": "call_module",
+      "target": "e4.dw.dw_w",
+      "inputs": [
+        "integer_e3_act"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.02869148924946785,
+        "zero_point": 137
+      },
+      "args_repr": "(integer_e3_act,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "e4_dw_scale_1",
+      "kind": "get_attr",
+      "target": "e4_dw_scale_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "e4_dw_zero_point_1",
+      "kind": "get_attr",
+      "target": "e4_dw_zero_point_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_33",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "add_32",
+        "e4_dw_dw_w",
+        "e4_dw_scale_1",
+        "e4_dw_zero_point_1"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.047797396779060364,
+        "zero_point": 65
+      },
+      "args_repr": "(add_32, e4_dw_dw_w, e4_dw_scale_1, e4_dw_zero_point_1)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "e4_bn",
+      "kind": "call_module",
+      "target": "e4.bn",
+      "inputs": [
+        "add_33"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.05276021361351013,
+        "zero_point": 101
+      },
+      "args_repr": "(add_33,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.batchnorm.BatchNorm2d"
+    },
+    {
+      "name": "e4_pw",
+      "kind": "call_module",
+      "target": "e4.pw",
+      "inputs": [
+        "e4_bn"
+      ],
+      "output": {
+        "shape": [
+          1,
+          256,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.044368594884872437,
+        "zero_point": 148
+      },
+      "args_repr": "(e4_bn,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "e4_down",
+      "kind": "call_module",
+      "target": "e4.down",
+      "inputs": [
+        "e4_pw"
+      ],
+      "output": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.044368594884872437,
+        "zero_point": 148
+      },
+      "args_repr": "(e4_pw,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.nn.modules.pooling.MaxPool2d"
+    },
+    {
+      "name": "integer_e4_act",
+      "kind": "call_module",
+      "target": "integer_e4_act",
+      "inputs": [
+        "e4_down"
+      ],
+      "output": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.02292836830019951,
+        "zero_point": 7
+      },
+      "args_repr": "(e4_down,)",
+      "kwargs_repr": "{}",
+      "module_type": "quantization.IntegerLookup"
+    },
+    {
+      "name": "e5_dw_dw_h",
+      "kind": "call_module",
+      "target": "e5.dw.dw_h",
+      "inputs": [
+        "integer_e4_act"
+      ],
+      "output": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.021250806748867035,
+        "zero_point": 133
+      },
+      "args_repr": "(integer_e4_act,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "e5_dw_scale_0",
+      "kind": "get_attr",
+      "target": "e5_dw_scale_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "e5_dw_zero_point_0",
+      "kind": "get_attr",
+      "target": "e5_dw_zero_point_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_34",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "integer_e4_act",
+        "e5_dw_dw_h",
+        "e5_dw_scale_0",
+        "e5_dw_zero_point_0"
+      ],
+      "output": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.03265659138560295,
+        "zero_point": 70
+      },
+      "args_repr": "(integer_e4_act, e5_dw_dw_h, e5_dw_scale_0, e5_dw_zero_point_0)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "e5_dw_dw_w",
+      "kind": "call_module",
+      "target": "e5.dw.dw_w",
+      "inputs": [
+        "integer_e4_act"
+      ],
+      "output": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.024861229583621025,
+        "zero_point": 123
+      },
+      "args_repr": "(integer_e4_act,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "e5_dw_scale_1",
+      "kind": "get_attr",
+      "target": "e5_dw_scale_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "e5_dw_zero_point_1",
+      "kind": "get_attr",
+      "target": "e5_dw_zero_point_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_35",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "add_34",
+        "e5_dw_dw_w",
+        "e5_dw_scale_1",
+        "e5_dw_zero_point_1"
+      ],
+      "output": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.041329238563776016,
+        "zero_point": 72
+      },
+      "args_repr": "(add_34, e5_dw_dw_w, e5_dw_scale_1, e5_dw_zero_point_1)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "e5_bn",
+      "kind": "call_module",
+      "target": "e5.bn",
+      "inputs": [
+        "add_35"
+      ],
+      "output": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.04776574671268463,
+        "zero_point": 101
+      },
+      "args_repr": "(add_35,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.batchnorm.BatchNorm2d"
+    },
+    {
+      "name": "e5_pw",
+      "kind": "call_module",
+      "target": "e5.pw",
+      "inputs": [
+        "e5_bn"
+      ],
+      "output": {
+        "shape": [
+          1,
+          512,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.03512616455554962,
+        "zero_point": 146
+      },
+      "args_repr": "(e5_bn,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "e5_down",
+      "kind": "call_module",
+      "target": "e5.down",
+      "inputs": [
+        "e5_pw"
+      ],
+      "output": {
+        "shape": [
+          1,
+          512,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 32768,
+        "scale": 0.03512616455554962,
+        "zero_point": 146
+      },
+      "args_repr": "(e5_pw,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.nn.modules.pooling.MaxPool2d"
+    },
+    {
+      "name": "integer_e5_act",
+      "kind": "call_module",
+      "target": "integer_e5_act",
+      "inputs": [
+        "e5_down"
+      ],
+      "output": {
+        "shape": [
+          1,
+          512,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 32768,
+        "scale": 0.01842789351940155,
+        "zero_point": 9
+      },
+      "args_repr": "(e5_down,)",
+      "kwargs_repr": "{}",
+      "module_type": "quantization.IntegerLookup"
+    },
+    {
+      "name": "b5_pw1",
+      "kind": "call_module",
+      "target": "b5.pw1",
+      "inputs": [
+        "integer_e5_act"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.032814476639032364,
+        "zero_point": 144
+      },
+      "args_repr": "(integer_e5_act,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "b5_dw1_dw_h",
+      "kind": "call_module",
+      "target": "b5.dw1.dw_h",
+      "inputs": [
+        "b5_pw1"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.0136363934725523,
+        "zero_point": 123
+      },
+      "args_repr": "(b5_pw1,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "b5_dw1_scale_0",
+      "kind": "get_attr",
+      "target": "b5_dw1_scale_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "b5_dw1_zero_point_0",
+      "kind": "get_attr",
+      "target": "b5_dw1_zero_point_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_36",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "b5_pw1",
+        "b5_dw1_dw_h",
+        "b5_dw1_scale_0",
+        "b5_dw1_zero_point_0"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.02859061397612095,
+        "zero_point": 125
+      },
+      "args_repr": "(b5_pw1, b5_dw1_dw_h, b5_dw1_scale_0, b5_dw1_zero_point_0)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "b5_dw1_dw_w",
+      "kind": "call_module",
+      "target": "b5.dw1.dw_w",
+      "inputs": [
+        "b5_pw1"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.0170458797365427,
+        "zero_point": 142
+      },
+      "args_repr": "(b5_pw1,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "b5_dw1_scale_1",
+      "kind": "get_attr",
+      "target": "b5_dw1_scale_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "b5_dw1_zero_point_1",
+      "kind": "get_attr",
+      "target": "b5_dw1_zero_point_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_37",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "add_36",
+        "b5_dw1_dw_w",
+        "b5_dw1_scale_1",
+        "b5_dw1_zero_point_1"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.032814476639032364,
+        "zero_point": 144
+      },
+      "args_repr": "(add_36, b5_dw1_dw_w, b5_dw1_scale_1, b5_dw1_zero_point_1)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "b5_dw2_dw_h",
+      "kind": "call_module",
+      "target": "b5.dw2.dw_h",
+      "inputs": [
+        "b5_pw1"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.015118842013180256,
+        "zero_point": 118
+      },
+      "args_repr": "(b5_pw1,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "b5_dw2_scale_0",
+      "kind": "get_attr",
+      "target": "b5_dw2_scale_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "b5_dw2_zero_point_0",
+      "kind": "get_attr",
+      "target": "b5_dw2_zero_point_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_38",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "b5_pw1",
+        "b5_dw2_dw_h",
+        "b5_dw2_scale_0",
+        "b5_dw2_zero_point_0"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.028980834409594536,
+        "zero_point": 117
+      },
+      "args_repr": "(b5_pw1, b5_dw2_dw_h, b5_dw2_scale_0, b5_dw2_zero_point_0)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "b5_dw2_dw_w",
+      "kind": "call_module",
+      "target": "b5.dw2.dw_w",
+      "inputs": [
+        "b5_pw1"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.01573759689927101,
+        "zero_point": 129
+      },
+      "args_repr": "(b5_pw1,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "b5_dw2_scale_1",
+      "kind": "get_attr",
+      "target": "b5_dw2_scale_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "b5_dw2_zero_point_1",
+      "kind": "get_attr",
+      "target": "b5_dw2_zero_point_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_39",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "add_38",
+        "b5_dw2_dw_w",
+        "b5_dw2_scale_1",
+        "b5_dw2_zero_point_1"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.032814476639032364,
+        "zero_point": 144
+      },
+      "args_repr": "(add_38, b5_dw2_dw_w, b5_dw2_scale_1, b5_dw2_zero_point_1)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "b5_dw3_dw_h",
+      "kind": "call_module",
+      "target": "b5.dw3.dw_h",
+      "inputs": [
+        "b5_pw1"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.012470274232327938,
+        "zero_point": 123
+      },
+      "args_repr": "(b5_pw1,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "b5_dw3_scale_0",
+      "kind": "get_attr",
+      "target": "b5_dw3_scale_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "b5_dw3_zero_point_0",
+      "kind": "get_attr",
+      "target": "b5_dw3_zero_point_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_40",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "b5_pw1",
+        "b5_dw3_dw_h",
+        "b5_dw3_scale_0",
+        "b5_dw3_zero_point_0"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.027081364765763283,
+        "zero_point": 140
+      },
+      "args_repr": "(b5_pw1, b5_dw3_dw_h, b5_dw3_scale_0, b5_dw3_zero_point_0)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "b5_dw3_dw_w",
+      "kind": "call_module",
+      "target": "b5.dw3.dw_w",
+      "inputs": [
+        "b5_pw1"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.013633662834763527,
+        "zero_point": 120
+      },
+      "args_repr": "(b5_pw1,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "b5_dw3_scale_1",
+      "kind": "get_attr",
+      "target": "b5_dw3_scale_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "b5_dw3_zero_point_1",
+      "kind": "get_attr",
+      "target": "b5_dw3_zero_point_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_41",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "add_40",
+        "b5_dw3_dw_w",
+        "b5_dw3_scale_1",
+        "b5_dw3_zero_point_1"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 8192,
+        "scale": 0.032814476639032364,
+        "zero_point": 144
+      },
+      "args_repr": "(add_40, b5_dw3_dw_w, b5_dw3_scale_1, b5_dw3_zero_point_1)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "cat",
+      "kind": "call_function",
+      "target": "<built-in method cat of type object at 0x76b9d8da0f40>",
+      "inputs": [
+        "b5_pw1",
+        "add_37",
+        "add_39",
+        "add_41"
+      ],
+      "output": {
+        "shape": [
+          1,
+          512,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 32768,
+        "scale": 0.032814476639032364,
+        "zero_point": 144
+      },
+      "args_repr": "([b5_pw1, add_37, add_39, add_41], 1)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "b5_bn",
+      "kind": "call_module",
+      "target": "b5.bn",
+      "inputs": [
+        "cat"
+      ],
+      "output": {
+        "shape": [
+          1,
+          512,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 32768,
+        "scale": 0.04568571224808693,
+        "zero_point": 128
+      },
+      "args_repr": "(cat,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.batchnorm.BatchNorm2d"
+    },
+    {
+      "name": "b5_pw2",
+      "kind": "call_module",
+      "target": "b5.pw2",
+      "inputs": [
+        "b5_bn"
+      ],
+      "output": {
+        "shape": [
+          1,
+          512,
+          8,
+          8
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 32768,
+        "scale": 0.04869212955236435,
+        "zero_point": 146
+      },
+      "args_repr": "(b5_bn,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "integer_b5_act",
+      "kind": "call_module",
+      "target": "integer_b5_act",
+      "inputs": [
+        "b5_pw2"
+      ],
+      "output": {
+        "shape": [
+          1,
+          512,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.04776574671268463,
+        "zero_point": 101
+      },
+      "args_repr": "(b5_pw2,)",
+      "kwargs_repr": "{}",
+      "module_type": "quantization.IntegerLookup"
+    },
+    {
+      "name": "cat_1",
+      "kind": "call_function",
+      "target": "<built-in method cat of type object at 0x76b9d8da0f40>",
+      "inputs": [
+        "integer_b5_act",
+        "e5_bn"
+      ],
+      "output": {
+        "shape": [
+          1,
+          768,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 196608,
+        "scale": 0.04776574671268463,
+        "zero_point": 101
+      },
+      "args_repr": "([integer_b5_act, e5_bn],)",
+      "kwargs_repr": "{'dim': 1}"
+    },
+    {
+      "name": "d5_pw",
+      "kind": "call_module",
+      "target": "d5.pw",
+      "inputs": [
+        "cat_1"
+      ],
+      "output": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.04372554272413254,
+        "zero_point": 126
+      },
+      "args_repr": "(cat_1,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "d5_dw_dw_h",
+      "kind": "call_module",
+      "target": "d5.dw.dw_h",
+      "inputs": [
+        "d5_pw"
+      ],
+      "output": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.03394828364253044,
+        "zero_point": 129
+      },
+      "args_repr": "(d5_pw,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "d5_dw_scale_0",
+      "kind": "get_attr",
+      "target": "d5_dw_scale_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "d5_dw_zero_point_0",
+      "kind": "get_attr",
+      "target": "d5_dw_zero_point_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_42",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "d5_pw",
+        "d5_dw_dw_h",
+        "d5_dw_scale_0",
+        "d5_dw_zero_point_0"
+      ],
+      "output": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.056744031608104706,
+        "zero_point": 126
+      },
+      "args_repr": "(d5_pw, d5_dw_dw_h, d5_dw_scale_0, d5_dw_zero_point_0)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "d5_dw_dw_w",
+      "kind": "call_module",
+      "target": "d5.dw.dw_w",
+      "inputs": [
+        "d5_pw"
+      ],
+      "output": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.03054134175181389,
+        "zero_point": 127
+      },
+      "args_repr": "(d5_pw,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "d5_dw_scale_1",
+      "kind": "get_attr",
+      "target": "d5_dw_scale_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "d5_dw_zero_point_1",
+      "kind": "get_attr",
+      "target": "d5_dw_zero_point_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_43",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "add_42",
+        "d5_dw_dw_w",
+        "d5_dw_scale_1",
+        "d5_dw_zero_point_1"
+      ],
+      "output": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.06859655678272247,
+        "zero_point": 133
+      },
+      "args_repr": "(add_42, d5_dw_dw_w, d5_dw_scale_1, d5_dw_zero_point_1)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "d5_pw2",
+      "kind": "call_module",
+      "target": "d5.pw2",
+      "inputs": [
+        "add_43"
+      ],
+      "output": {
+        "shape": [
+          1,
+          256,
+          16,
+          16
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.05039689317345619,
+        "zero_point": 142
+      },
+      "args_repr": "(add_43,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "integer_d5_act",
+      "kind": "call_module",
+      "target": "integer_d5_act",
+      "inputs": [
+        "d5_pw2"
+      ],
+      "output": {
+        "shape": [
+          1,
+          256,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.05276021361351013,
+        "zero_point": 101
+      },
+      "args_repr": "(d5_pw2,)",
+      "kwargs_repr": "{}",
+      "module_type": "quantization.IntegerLookup"
+    },
+    {
+      "name": "cat_2",
+      "kind": "call_function",
+      "target": "<built-in method cat of type object at 0x76b9d8da0f40>",
+      "inputs": [
+        "integer_d5_act",
+        "e4_bn"
+      ],
+      "output": {
+        "shape": [
+          1,
+          384,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 393216,
+        "scale": 0.05276021361351013,
+        "zero_point": 101
+      },
+      "args_repr": "([integer_d5_act, e4_bn],)",
+      "kwargs_repr": "{'dim': 1}"
+    },
+    {
+      "name": "d4_pw",
+      "kind": "call_module",
+      "target": "d4.pw",
+      "inputs": [
+        "cat_2"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.05046489089727402,
+        "zero_point": 125
+      },
+      "args_repr": "(cat_2,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "d4_dw_dw_h",
+      "kind": "call_module",
+      "target": "d4.dw.dw_h",
+      "inputs": [
+        "d4_pw"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.037334516644477844,
+        "zero_point": 125
+      },
+      "args_repr": "(d4_pw,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "d4_dw_scale_0",
+      "kind": "get_attr",
+      "target": "d4_dw_scale_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "d4_dw_zero_point_0",
+      "kind": "get_attr",
+      "target": "d4_dw_zero_point_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_44",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "d4_pw",
+        "d4_dw_dw_h",
+        "d4_dw_scale_0",
+        "d4_dw_zero_point_0"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.06778295338153839,
+        "zero_point": 125
+      },
+      "args_repr": "(d4_pw, d4_dw_dw_h, d4_dw_scale_0, d4_dw_zero_point_0)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "d4_dw_dw_w",
+      "kind": "call_module",
+      "target": "d4.dw.dw_w",
+      "inputs": [
+        "d4_pw"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.040232814848423004,
+        "zero_point": 131
+      },
+      "args_repr": "(d4_pw,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "d4_dw_scale_1",
+      "kind": "get_attr",
+      "target": "d4_dw_scale_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "d4_dw_zero_point_1",
+      "kind": "get_attr",
+      "target": "d4_dw_zero_point_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_45",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "add_44",
+        "d4_dw_dw_w",
+        "d4_dw_scale_1",
+        "d4_dw_zero_point_1"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.08650889992713928,
+        "zero_point": 126
+      },
+      "args_repr": "(add_44, d4_dw_dw_w, d4_dw_scale_1, d4_dw_zero_point_1)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "d4_pw2",
+      "kind": "call_module",
+      "target": "d4.pw2",
+      "inputs": [
+        "add_45"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          32,
+          32
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 131072,
+        "scale": 0.06005029007792473,
+        "zero_point": 138
+      },
+      "args_repr": "(add_45,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "integer_d4_act",
+      "kind": "call_module",
+      "target": "integer_d4_act",
+      "inputs": [
+        "d4_pw2"
+      ],
+      "output": {
+        "shape": [
+          1,
+          128,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.05830741673707962,
+        "zero_point": 99
+      },
+      "args_repr": "(d4_pw2,)",
+      "kwargs_repr": "{}",
+      "module_type": "quantization.IntegerLookup"
+    },
+    {
+      "name": "cat_3",
+      "kind": "call_function",
+      "target": "<built-in method cat of type object at 0x76b9d8da0f40>",
+      "inputs": [
+        "integer_d4_act",
+        "e3_bn"
+      ],
+      "output": {
+        "shape": [
+          1,
+          192,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 786432,
+        "scale": 0.05830741673707962,
+        "zero_point": 99
+      },
+      "args_repr": "([integer_d4_act, e3_bn],)",
+      "kwargs_repr": "{'dim': 1}"
+    },
+    {
+      "name": "d3_pw",
+      "kind": "call_module",
+      "target": "d3.pw",
+      "inputs": [
+        "cat_3"
+      ],
+      "output": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.04894033819437027,
+        "zero_point": 134
+      },
+      "args_repr": "(cat_3,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "d3_dw_dw_h",
+      "kind": "call_module",
+      "target": "d3.dw.dw_h",
+      "inputs": [
+        "d3_pw"
+      ],
+      "output": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.04007359594106674,
+        "zero_point": 123
+      },
+      "args_repr": "(d3_pw,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "d3_dw_scale_0",
+      "kind": "get_attr",
+      "target": "d3_dw_scale_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "d3_dw_zero_point_0",
+      "kind": "get_attr",
+      "target": "d3_dw_zero_point_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_46",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "d3_pw",
+        "d3_dw_dw_h",
+        "d3_dw_scale_0",
+        "d3_dw_zero_point_0"
+      ],
+      "output": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.06537937372922897,
+        "zero_point": 125
+      },
+      "args_repr": "(d3_pw, d3_dw_dw_h, d3_dw_scale_0, d3_dw_zero_point_0)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "d3_dw_dw_w",
+      "kind": "call_module",
+      "target": "d3.dw.dw_w",
+      "inputs": [
+        "d3_pw"
+      ],
+      "output": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.04121106490492821,
+        "zero_point": 125
+      },
+      "args_repr": "(d3_pw,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "d3_dw_scale_1",
+      "kind": "get_attr",
+      "target": "d3_dw_scale_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "d3_dw_zero_point_1",
+      "kind": "get_attr",
+      "target": "d3_dw_zero_point_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_47",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "add_46",
+        "d3_dw_dw_w",
+        "d3_dw_scale_1",
+        "d3_dw_zero_point_1"
+      ],
+      "output": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.09905567020177841,
+        "zero_point": 122
+      },
+      "args_repr": "(add_46, d3_dw_dw_w, d3_dw_scale_1, d3_dw_zero_point_1)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "d3_pw2",
+      "kind": "call_module",
+      "target": "d3.pw2",
+      "inputs": [
+        "add_47"
+      ],
+      "output": {
+        "shape": [
+          1,
+          64,
+          64,
+          64
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 262144,
+        "scale": 0.07249617576599121,
+        "zero_point": 118
+      },
+      "args_repr": "(add_47,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "integer_d3_act",
+      "kind": "call_module",
+      "target": "integer_d3_act",
+      "inputs": [
+        "d3_pw2"
+      ],
+      "output": {
+        "shape": [
+          1,
+          64,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.06371980160474777,
+        "zero_point": 99
+      },
+      "args_repr": "(d3_pw2,)",
+      "kwargs_repr": "{}",
+      "module_type": "quantization.IntegerLookup"
+    },
+    {
+      "name": "cat_4",
+      "kind": "call_function",
+      "target": "<built-in method cat of type object at 0x76b9d8da0f40>",
+      "inputs": [
+        "integer_d3_act",
+        "e2_bn"
+      ],
+      "output": {
+        "shape": [
+          1,
+          96,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1572864,
+        "scale": 0.06371980160474777,
+        "zero_point": 99
+      },
+      "args_repr": "([integer_d3_act, e2_bn],)",
+      "kwargs_repr": "{'dim': 1}"
+    },
+    {
+      "name": "d2_pw",
+      "kind": "call_module",
+      "target": "d2.pw",
+      "inputs": [
+        "cat_4"
+      ],
+      "output": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.04048904776573181,
+        "zero_point": 124
+      },
+      "args_repr": "(cat_4,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "d2_dw_dw_h",
+      "kind": "call_module",
+      "target": "d2.dw.dw_h",
+      "inputs": [
+        "d2_pw"
+      ],
+      "output": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.04771610349416733,
+        "zero_point": 120
+      },
+      "args_repr": "(d2_pw,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "d2_dw_scale_0",
+      "kind": "get_attr",
+      "target": "d2_dw_scale_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "d2_dw_zero_point_0",
+      "kind": "get_attr",
+      "target": "d2_dw_zero_point_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_48",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "d2_pw",
+        "d2_dw_dw_h",
+        "d2_dw_scale_0",
+        "d2_dw_zero_point_0"
+      ],
+      "output": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.07886239141225815,
+        "zero_point": 122
+      },
+      "args_repr": "(d2_pw, d2_dw_dw_h, d2_dw_scale_0, d2_dw_zero_point_0)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "d2_dw_dw_w",
+      "kind": "call_module",
+      "target": "d2.dw.dw_w",
+      "inputs": [
+        "d2_pw"
+      ],
+      "output": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.03930909186601639,
+        "zero_point": 132
+      },
+      "args_repr": "(d2_pw,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "d2_dw_scale_1",
+      "kind": "get_attr",
+      "target": "d2_dw_scale_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "d2_dw_zero_point_1",
+      "kind": "get_attr",
+      "target": "d2_dw_zero_point_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_49",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "add_48",
+        "d2_dw_dw_w",
+        "d2_dw_scale_1",
+        "d2_dw_zero_point_1"
+      ],
+      "output": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.10943175107240677,
+        "zero_point": 121
+      },
+      "args_repr": "(add_48, d2_dw_dw_w, d2_dw_scale_1, d2_dw_zero_point_1)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "d2_pw2",
+      "kind": "call_module",
+      "target": "d2.pw2",
+      "inputs": [
+        "add_49"
+      ],
+      "output": {
+        "shape": [
+          1,
+          32,
+          128,
+          128
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 524288,
+        "scale": 0.06434544920921326,
+        "zero_point": 121
+      },
+      "args_repr": "(add_49,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "integer_d2_act",
+      "kind": "call_module",
+      "target": "integer_d2_act",
+      "inputs": [
+        "d2_pw2"
+      ],
+      "output": {
+        "shape": [
+          1,
+          32,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 2097152,
+        "scale": 0.0738065168261528,
+        "zero_point": 130
+      },
+      "args_repr": "(d2_pw2,)",
+      "kwargs_repr": "{}",
+      "module_type": "quantization.IntegerLookup"
+    },
+    {
+      "name": "cat_5",
+      "kind": "call_function",
+      "target": "<built-in method cat of type object at 0x76b9d8da0f40>",
+      "inputs": [
+        "integer_d2_act",
+        "e1_bn"
+      ],
+      "output": {
+        "shape": [
+          1,
+          48,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 3145728,
+        "scale": 0.0738065168261528,
+        "zero_point": 130
+      },
+      "args_repr": "([integer_d2_act, e1_bn],)",
+      "kwargs_repr": "{'dim': 1}"
+    },
+    {
+      "name": "d1_pw",
+      "kind": "call_module",
+      "target": "d1.pw",
+      "inputs": [
+        "cat_5"
+      ],
+      "output": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.043199263513088226,
+        "zero_point": 134
+      },
+      "args_repr": "(cat_5,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "d1_dw_dw_h",
+      "kind": "call_module",
+      "target": "d1.dw.dw_h",
+      "inputs": [
+        "d1_pw"
+      ],
+      "output": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.0560811348259449,
+        "zero_point": 122
+      },
+      "args_repr": "(d1_pw,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "d1_dw_scale_0",
+      "kind": "get_attr",
+      "target": "d1_dw_scale_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "d1_dw_zero_point_0",
+      "kind": "get_attr",
+      "target": "d1_dw_zero_point_0",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_50",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "d1_pw",
+        "d1_dw_dw_h",
+        "d1_dw_scale_0",
+        "d1_dw_zero_point_0"
+      ],
+      "output": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.0789080336689949,
+        "zero_point": 126
+      },
+      "args_repr": "(d1_pw, d1_dw_dw_h, d1_dw_scale_0, d1_dw_zero_point_0)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "d1_dw_dw_w",
+      "kind": "call_module",
+      "target": "d1.dw.dw_w",
+      "inputs": [
+        "d1_pw"
+      ],
+      "output": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.07295357435941696,
+        "zero_point": 132
+      },
+      "args_repr": "(d1_pw,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "d1_dw_scale_1",
+      "kind": "get_attr",
+      "target": "d1_dw_scale_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "d1_dw_zero_point_1",
+      "kind": "get_attr",
+      "target": "d1_dw_zero_point_1",
+      "inputs": [],
+      "output": {
+        "shape": [],
+        "dtype": "torch.int64",
+        "quantized": false,
+        "elements": 1
+      },
+      "args_repr": "()",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "add_51",
+      "kind": "call_function",
+      "target": "quantized.add",
+      "inputs": [
+        "add_50",
+        "d1_dw_dw_w",
+        "d1_dw_scale_1",
+        "d1_dw_zero_point_1"
+      ],
+      "output": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.13806484639644623,
+        "zero_point": 120
+      },
+      "args_repr": "(add_50, d1_dw_dw_w, d1_dw_scale_1, d1_dw_zero_point_1)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "d1_pw2",
+      "kind": "call_module",
+      "target": "d1.pw2",
+      "inputs": [
+        "add_51"
+      ],
+      "output": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.18196365237236023,
+        "zero_point": 131
+      },
+      "args_repr": "(add_51,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "integer_d1_act",
+      "kind": "call_module",
+      "target": "integer_d1_act",
+      "inputs": [
+        "d1_pw2"
+      ],
+      "output": {
+        "shape": [
+          1,
+          16,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 1048576,
+        "scale": 0.09588617086410522,
+        "zero_point": 2
+      },
+      "args_repr": "(d1_pw2,)",
+      "kwargs_repr": "{}",
+      "module_type": "quantization.IntegerLookup"
+    },
+    {
+      "name": "conv_out",
+      "kind": "call_module",
+      "target": "conv_out",
+      "inputs": [
+        "integer_d1_act"
+      ],
+      "output": {
+        "shape": [
+          1,
+          1,
+          256,
+          256
+        ],
+        "dtype": "torch.quint8",
+        "quantized": true,
+        "elements": 65536,
+        "scale": 0.13930772244930267,
+        "zero_point": 153
+      },
+      "args_repr": "(integer_d1_act,)",
+      "kwargs_repr": "{}",
+      "module_type": "torch.ao.nn.quantized.modules.conv.Conv2d"
+    },
+    {
+      "name": "dequantize_99",
+      "kind": "call_method",
+      "target": "dequantize",
+      "inputs": [
+        "conv_out"
+      ],
+      "output": {
+        "shape": [
+          1,
+          1,
+          256,
+          256
+        ],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 65536
+      },
+      "args_repr": "(conv_out,)",
+      "kwargs_repr": "{}"
+    },
+    {
+      "name": "output",
+      "kind": "output",
+      "target": "output",
+      "inputs": [
+        "dequantize_99"
+      ],
+      "output": {
+        "shape": [
+          1,
+          1,
+          256,
+          256
+        ],
+        "dtype": "torch.float32",
+        "quantized": false,
+        "elements": 65536
+      },
+      "args_repr": "(dequantize_99,)",
+      "kwargs_repr": "{}"
+    }
+  ],
+  "limitations": [
+    "CPU reference artifact, not a PYNQ overlay or FINN/HLS input guaranteed to compile.",
+    "Quantized BN and convolution bias retain FP32 parameter metadata; implement and verify integer affine/requantization arithmetic separately.",
+    "bias_int32_candidate uses round-to-nearest-even; exact CPU backend bias/requantization rounding is not certified equivalent.",
+    "Graph tensor shapes and byte counts are not a measured peak live memory or DDR traffic estimate.",
+    "Residual additions and concatenations require matching the recorded scales and zero points."
+  ]
+}

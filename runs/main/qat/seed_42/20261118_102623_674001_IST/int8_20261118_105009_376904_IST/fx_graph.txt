@@ -1,0 +1,158 @@
+graph():
+    %x : [num_users=1] = placeholder[target=x]
+    %conv_in_input_scale_0 : [num_users=1] = get_attr[target=conv_in_input_scale_0]
+    %conv_in_input_zero_point_0 : [num_users=1] = get_attr[target=conv_in_input_zero_point_0]
+    %quantize_per_tensor : [num_users=1] = call_function[target=torch.quantize_per_tensor](args = (%x, %conv_in_input_scale_0, %conv_in_input_zero_point_0, torch.quint8), kwargs = {})
+    %conv_in : [num_users=3] = call_module[target=conv_in](args = (%quantize_per_tensor,), kwargs = {})
+    %e1_dw_dw_h : [num_users=1] = call_module[target=e1.dw.dw_h](args = (%conv_in,), kwargs = {})
+    %e1_dw_scale_0 : [num_users=1] = get_attr[target=e1_dw_scale_0]
+    %e1_dw_zero_point_0 : [num_users=1] = get_attr[target=e1_dw_zero_point_0]
+    %add_26 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%conv_in, %e1_dw_dw_h, %e1_dw_scale_0, %e1_dw_zero_point_0), kwargs = {})
+    %e1_dw_dw_w : [num_users=1] = call_module[target=e1.dw.dw_w](args = (%conv_in,), kwargs = {})
+    %e1_dw_scale_1 : [num_users=1] = get_attr[target=e1_dw_scale_1]
+    %e1_dw_zero_point_1 : [num_users=1] = get_attr[target=e1_dw_zero_point_1]
+    %add_27 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%add_26, %e1_dw_dw_w, %e1_dw_scale_1, %e1_dw_zero_point_1), kwargs = {})
+    %e1_bn : [num_users=2] = call_module[target=e1.bn](args = (%add_27,), kwargs = {})
+    %e1_pw : [num_users=1] = call_module[target=e1.pw](args = (%e1_bn,), kwargs = {})
+    %e1_down : [num_users=1] = call_module[target=e1.down](args = (%e1_pw,), kwargs = {})
+    %integer_e1_act : [num_users=3] = call_module[target=integer_e1_act](args = (%e1_down,), kwargs = {})
+    %e2_dw_dw_h : [num_users=1] = call_module[target=e2.dw.dw_h](args = (%integer_e1_act,), kwargs = {})
+    %e2_dw_scale_0 : [num_users=1] = get_attr[target=e2_dw_scale_0]
+    %e2_dw_zero_point_0 : [num_users=1] = get_attr[target=e2_dw_zero_point_0]
+    %add_28 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%integer_e1_act, %e2_dw_dw_h, %e2_dw_scale_0, %e2_dw_zero_point_0), kwargs = {})
+    %e2_dw_dw_w : [num_users=1] = call_module[target=e2.dw.dw_w](args = (%integer_e1_act,), kwargs = {})
+    %e2_dw_scale_1 : [num_users=1] = get_attr[target=e2_dw_scale_1]
+    %e2_dw_zero_point_1 : [num_users=1] = get_attr[target=e2_dw_zero_point_1]
+    %add_29 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%add_28, %e2_dw_dw_w, %e2_dw_scale_1, %e2_dw_zero_point_1), kwargs = {})
+    %e2_bn : [num_users=2] = call_module[target=e2.bn](args = (%add_29,), kwargs = {})
+    %e2_pw : [num_users=1] = call_module[target=e2.pw](args = (%e2_bn,), kwargs = {})
+    %e2_down : [num_users=1] = call_module[target=e2.down](args = (%e2_pw,), kwargs = {})
+    %integer_e2_act : [num_users=3] = call_module[target=integer_e2_act](args = (%e2_down,), kwargs = {})
+    %e3_dw_dw_h : [num_users=1] = call_module[target=e3.dw.dw_h](args = (%integer_e2_act,), kwargs = {})
+    %e3_dw_scale_0 : [num_users=1] = get_attr[target=e3_dw_scale_0]
+    %e3_dw_zero_point_0 : [num_users=1] = get_attr[target=e3_dw_zero_point_0]
+    %add_30 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%integer_e2_act, %e3_dw_dw_h, %e3_dw_scale_0, %e3_dw_zero_point_0), kwargs = {})
+    %e3_dw_dw_w : [num_users=1] = call_module[target=e3.dw.dw_w](args = (%integer_e2_act,), kwargs = {})
+    %e3_dw_scale_1 : [num_users=1] = get_attr[target=e3_dw_scale_1]
+    %e3_dw_zero_point_1 : [num_users=1] = get_attr[target=e3_dw_zero_point_1]
+    %add_31 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%add_30, %e3_dw_dw_w, %e3_dw_scale_1, %e3_dw_zero_point_1), kwargs = {})
+    %e3_bn : [num_users=2] = call_module[target=e3.bn](args = (%add_31,), kwargs = {})
+    %e3_pw : [num_users=1] = call_module[target=e3.pw](args = (%e3_bn,), kwargs = {})
+    %e3_down : [num_users=1] = call_module[target=e3.down](args = (%e3_pw,), kwargs = {})
+    %integer_e3_act : [num_users=3] = call_module[target=integer_e3_act](args = (%e3_down,), kwargs = {})
+    %e4_dw_dw_h : [num_users=1] = call_module[target=e4.dw.dw_h](args = (%integer_e3_act,), kwargs = {})
+    %e4_dw_scale_0 : [num_users=1] = get_attr[target=e4_dw_scale_0]
+    %e4_dw_zero_point_0 : [num_users=1] = get_attr[target=e4_dw_zero_point_0]
+    %add_32 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%integer_e3_act, %e4_dw_dw_h, %e4_dw_scale_0, %e4_dw_zero_point_0), kwargs = {})
+    %e4_dw_dw_w : [num_users=1] = call_module[target=e4.dw.dw_w](args = (%integer_e3_act,), kwargs = {})
+    %e4_dw_scale_1 : [num_users=1] = get_attr[target=e4_dw_scale_1]
+    %e4_dw_zero_point_1 : [num_users=1] = get_attr[target=e4_dw_zero_point_1]
+    %add_33 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%add_32, %e4_dw_dw_w, %e4_dw_scale_1, %e4_dw_zero_point_1), kwargs = {})
+    %e4_bn : [num_users=2] = call_module[target=e4.bn](args = (%add_33,), kwargs = {})
+    %e4_pw : [num_users=1] = call_module[target=e4.pw](args = (%e4_bn,), kwargs = {})
+    %e4_down : [num_users=1] = call_module[target=e4.down](args = (%e4_pw,), kwargs = {})
+    %integer_e4_act : [num_users=3] = call_module[target=integer_e4_act](args = (%e4_down,), kwargs = {})
+    %e5_dw_dw_h : [num_users=1] = call_module[target=e5.dw.dw_h](args = (%integer_e4_act,), kwargs = {})
+    %e5_dw_scale_0 : [num_users=1] = get_attr[target=e5_dw_scale_0]
+    %e5_dw_zero_point_0 : [num_users=1] = get_attr[target=e5_dw_zero_point_0]
+    %add_34 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%integer_e4_act, %e5_dw_dw_h, %e5_dw_scale_0, %e5_dw_zero_point_0), kwargs = {})
+    %e5_dw_dw_w : [num_users=1] = call_module[target=e5.dw.dw_w](args = (%integer_e4_act,), kwargs = {})
+    %e5_dw_scale_1 : [num_users=1] = get_attr[target=e5_dw_scale_1]
+    %e5_dw_zero_point_1 : [num_users=1] = get_attr[target=e5_dw_zero_point_1]
+    %add_35 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%add_34, %e5_dw_dw_w, %e5_dw_scale_1, %e5_dw_zero_point_1), kwargs = {})
+    %e5_bn : [num_users=2] = call_module[target=e5.bn](args = (%add_35,), kwargs = {})
+    %e5_pw : [num_users=1] = call_module[target=e5.pw](args = (%e5_bn,), kwargs = {})
+    %e5_down : [num_users=1] = call_module[target=e5.down](args = (%e5_pw,), kwargs = {})
+    %integer_e5_act : [num_users=1] = call_module[target=integer_e5_act](args = (%e5_down,), kwargs = {})
+    %b5_pw1 : [num_users=10] = call_module[target=b5.pw1](args = (%integer_e5_act,), kwargs = {})
+    %b5_dw1_dw_h : [num_users=1] = call_module[target=b5.dw1.dw_h](args = (%b5_pw1,), kwargs = {})
+    %b5_dw1_scale_0 : [num_users=1] = get_attr[target=b5_dw1_scale_0]
+    %b5_dw1_zero_point_0 : [num_users=1] = get_attr[target=b5_dw1_zero_point_0]
+    %add_36 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%b5_pw1, %b5_dw1_dw_h, %b5_dw1_scale_0, %b5_dw1_zero_point_0), kwargs = {})
+    %b5_dw1_dw_w : [num_users=1] = call_module[target=b5.dw1.dw_w](args = (%b5_pw1,), kwargs = {})
+    %b5_dw1_scale_1 : [num_users=1] = get_attr[target=b5_dw1_scale_1]
+    %b5_dw1_zero_point_1 : [num_users=1] = get_attr[target=b5_dw1_zero_point_1]
+    %add_37 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%add_36, %b5_dw1_dw_w, %b5_dw1_scale_1, %b5_dw1_zero_point_1), kwargs = {})
+    %b5_dw2_dw_h : [num_users=1] = call_module[target=b5.dw2.dw_h](args = (%b5_pw1,), kwargs = {})
+    %b5_dw2_scale_0 : [num_users=1] = get_attr[target=b5_dw2_scale_0]
+    %b5_dw2_zero_point_0 : [num_users=1] = get_attr[target=b5_dw2_zero_point_0]
+    %add_38 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%b5_pw1, %b5_dw2_dw_h, %b5_dw2_scale_0, %b5_dw2_zero_point_0), kwargs = {})
+    %b5_dw2_dw_w : [num_users=1] = call_module[target=b5.dw2.dw_w](args = (%b5_pw1,), kwargs = {})
+    %b5_dw2_scale_1 : [num_users=1] = get_attr[target=b5_dw2_scale_1]
+    %b5_dw2_zero_point_1 : [num_users=1] = get_attr[target=b5_dw2_zero_point_1]
+    %add_39 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%add_38, %b5_dw2_dw_w, %b5_dw2_scale_1, %b5_dw2_zero_point_1), kwargs = {})
+    %b5_dw3_dw_h : [num_users=1] = call_module[target=b5.dw3.dw_h](args = (%b5_pw1,), kwargs = {})
+    %b5_dw3_scale_0 : [num_users=1] = get_attr[target=b5_dw3_scale_0]
+    %b5_dw3_zero_point_0 : [num_users=1] = get_attr[target=b5_dw3_zero_point_0]
+    %add_40 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%b5_pw1, %b5_dw3_dw_h, %b5_dw3_scale_0, %b5_dw3_zero_point_0), kwargs = {})
+    %b5_dw3_dw_w : [num_users=1] = call_module[target=b5.dw3.dw_w](args = (%b5_pw1,), kwargs = {})
+    %b5_dw3_scale_1 : [num_users=1] = get_attr[target=b5_dw3_scale_1]
+    %b5_dw3_zero_point_1 : [num_users=1] = get_attr[target=b5_dw3_zero_point_1]
+    %add_41 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%add_40, %b5_dw3_dw_w, %b5_dw3_scale_1, %b5_dw3_zero_point_1), kwargs = {})
+    %cat : [num_users=1] = call_function[target=torch.cat](args = ([%b5_pw1, %add_37, %add_39, %add_41], 1), kwargs = {})
+    %b5_bn : [num_users=1] = call_module[target=b5.bn](args = (%cat,), kwargs = {})
+    %b5_pw2 : [num_users=1] = call_module[target=b5.pw2](args = (%b5_bn,), kwargs = {})
+    %integer_b5_act : [num_users=1] = call_module[target=integer_b5_act](args = (%b5_pw2,), kwargs = {})
+    %cat_1 : [num_users=1] = call_function[target=torch.cat](args = ([%integer_b5_act, %e5_bn],), kwargs = {dim: 1})
+    %d5_pw : [num_users=3] = call_module[target=d5.pw](args = (%cat_1,), kwargs = {})
+    %d5_dw_dw_h : [num_users=1] = call_module[target=d5.dw.dw_h](args = (%d5_pw,), kwargs = {})
+    %d5_dw_scale_0 : [num_users=1] = get_attr[target=d5_dw_scale_0]
+    %d5_dw_zero_point_0 : [num_users=1] = get_attr[target=d5_dw_zero_point_0]
+    %add_42 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%d5_pw, %d5_dw_dw_h, %d5_dw_scale_0, %d5_dw_zero_point_0), kwargs = {})
+    %d5_dw_dw_w : [num_users=1] = call_module[target=d5.dw.dw_w](args = (%d5_pw,), kwargs = {})
+    %d5_dw_scale_1 : [num_users=1] = get_attr[target=d5_dw_scale_1]
+    %d5_dw_zero_point_1 : [num_users=1] = get_attr[target=d5_dw_zero_point_1]
+    %add_43 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%add_42, %d5_dw_dw_w, %d5_dw_scale_1, %d5_dw_zero_point_1), kwargs = {})
+    %d5_pw2 : [num_users=1] = call_module[target=d5.pw2](args = (%add_43,), kwargs = {})
+    %integer_d5_act : [num_users=1] = call_module[target=integer_d5_act](args = (%d5_pw2,), kwargs = {})
+    %cat_2 : [num_users=1] = call_function[target=torch.cat](args = ([%integer_d5_act, %e4_bn],), kwargs = {dim: 1})
+    %d4_pw : [num_users=3] = call_module[target=d4.pw](args = (%cat_2,), kwargs = {})
+    %d4_dw_dw_h : [num_users=1] = call_module[target=d4.dw.dw_h](args = (%d4_pw,), kwargs = {})
+    %d4_dw_scale_0 : [num_users=1] = get_attr[target=d4_dw_scale_0]
+    %d4_dw_zero_point_0 : [num_users=1] = get_attr[target=d4_dw_zero_point_0]
+    %add_44 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%d4_pw, %d4_dw_dw_h, %d4_dw_scale_0, %d4_dw_zero_point_0), kwargs = {})
+    %d4_dw_dw_w : [num_users=1] = call_module[target=d4.dw.dw_w](args = (%d4_pw,), kwargs = {})
+    %d4_dw_scale_1 : [num_users=1] = get_attr[target=d4_dw_scale_1]
+    %d4_dw_zero_point_1 : [num_users=1] = get_attr[target=d4_dw_zero_point_1]
+    %add_45 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%add_44, %d4_dw_dw_w, %d4_dw_scale_1, %d4_dw_zero_point_1), kwargs = {})
+    %d4_pw2 : [num_users=1] = call_module[target=d4.pw2](args = (%add_45,), kwargs = {})
+    %integer_d4_act : [num_users=1] = call_module[target=integer_d4_act](args = (%d4_pw2,), kwargs = {})
+    %cat_3 : [num_users=1] = call_function[target=torch.cat](args = ([%integer_d4_act, %e3_bn],), kwargs = {dim: 1})
+    %d3_pw : [num_users=3] = call_module[target=d3.pw](args = (%cat_3,), kwargs = {})
+    %d3_dw_dw_h : [num_users=1] = call_module[target=d3.dw.dw_h](args = (%d3_pw,), kwargs = {})
+    %d3_dw_scale_0 : [num_users=1] = get_attr[target=d3_dw_scale_0]
+    %d3_dw_zero_point_0 : [num_users=1] = get_attr[target=d3_dw_zero_point_0]
+    %add_46 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%d3_pw, %d3_dw_dw_h, %d3_dw_scale_0, %d3_dw_zero_point_0), kwargs = {})
+    %d3_dw_dw_w : [num_users=1] = call_module[target=d3.dw.dw_w](args = (%d3_pw,), kwargs = {})
+    %d3_dw_scale_1 : [num_users=1] = get_attr[target=d3_dw_scale_1]
+    %d3_dw_zero_point_1 : [num_users=1] = get_attr[target=d3_dw_zero_point_1]
+    %add_47 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%add_46, %d3_dw_dw_w, %d3_dw_scale_1, %d3_dw_zero_point_1), kwargs = {})
+    %d3_pw2 : [num_users=1] = call_module[target=d3.pw2](args = (%add_47,), kwargs = {})
+    %integer_d3_act : [num_users=1] = call_module[target=integer_d3_act](args = (%d3_pw2,), kwargs = {})
+    %cat_4 : [num_users=1] = call_function[target=torch.cat](args = ([%integer_d3_act, %e2_bn],), kwargs = {dim: 1})
+    %d2_pw : [num_users=3] = call_module[target=d2.pw](args = (%cat_4,), kwargs = {})
+    %d2_dw_dw_h : [num_users=1] = call_module[target=d2.dw.dw_h](args = (%d2_pw,), kwargs = {})
+    %d2_dw_scale_0 : [num_users=1] = get_attr[target=d2_dw_scale_0]
+    %d2_dw_zero_point_0 : [num_users=1] = get_attr[target=d2_dw_zero_point_0]
+    %add_48 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%d2_pw, %d2_dw_dw_h, %d2_dw_scale_0, %d2_dw_zero_point_0), kwargs = {})
+    %d2_dw_dw_w : [num_users=1] = call_module[target=d2.dw.dw_w](args = (%d2_pw,), kwargs = {})
+    %d2_dw_scale_1 : [num_users=1] = get_attr[target=d2_dw_scale_1]
+    %d2_dw_zero_point_1 : [num_users=1] = get_attr[target=d2_dw_zero_point_1]
+    %add_49 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%add_48, %d2_dw_dw_w, %d2_dw_scale_1, %d2_dw_zero_point_1), kwargs = {})
+    %d2_pw2 : [num_users=1] = call_module[target=d2.pw2](args = (%add_49,), kwargs = {})
+    %integer_d2_act : [num_users=1] = call_module[target=integer_d2_act](args = (%d2_pw2,), kwargs = {})
+    %cat_5 : [num_users=1] = call_function[target=torch.cat](args = ([%integer_d2_act, %e1_bn],), kwargs = {dim: 1})
+    %d1_pw : [num_users=3] = call_module[target=d1.pw](args = (%cat_5,), kwargs = {})
+    %d1_dw_dw_h : [num_users=1] = call_module[target=d1.dw.dw_h](args = (%d1_pw,), kwargs = {})
+    %d1_dw_scale_0 : [num_users=1] = get_attr[target=d1_dw_scale_0]
+    %d1_dw_zero_point_0 : [num_users=1] = get_attr[target=d1_dw_zero_point_0]
+    %add_50 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%d1_pw, %d1_dw_dw_h, %d1_dw_scale_0, %d1_dw_zero_point_0), kwargs = {})
+    %d1_dw_dw_w : [num_users=1] = call_module[target=d1.dw.dw_w](args = (%d1_pw,), kwargs = {})
+    %d1_dw_scale_1 : [num_users=1] = get_attr[target=d1_dw_scale_1]
+    %d1_dw_zero_point_1 : [num_users=1] = get_attr[target=d1_dw_zero_point_1]
+    %add_51 : [num_users=1] = call_function[target=torch.ops.quantized.add](args = (%add_50, %d1_dw_dw_w, %d1_dw_scale_1, %d1_dw_zero_point_1), kwargs = {})
+    %d1_pw2 : [num_users=1] = call_module[target=d1.pw2](args = (%add_51,), kwargs = {})
+    %integer_d1_act : [num_users=1] = call_module[target=integer_d1_act](args = (%d1_pw2,), kwargs = {})
+    %conv_out : [num_users=1] = call_module[target=conv_out](args = (%integer_d1_act,), kwargs = {})
+    %dequantize_99 : [num_users=1] = call_method[target=dequantize](args = (%conv_out,), kwargs = {})
+    return dequantize_99

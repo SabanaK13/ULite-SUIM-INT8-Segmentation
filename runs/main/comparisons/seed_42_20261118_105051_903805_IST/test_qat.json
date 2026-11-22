@@ -1,0 +1,19 @@
+{
+  "timestamp_ist": "2026-11-18T10:52:17+05:30",
+  "route": "qat",
+  "seed": 42,
+  "selected_on_validation": true,
+  "images": 110,
+  "bce_loss": 0.46960714039477436,
+  "foreground_iou_global": 0.5729893884784351,
+  "foreground_dice_global": 0.7285356057394541,
+  "foreground_iou_per_image_mean": 0.5411226404806038,
+  "foreground_dice_per_image_mean": 0.6508708000366222,
+  "foreground_iou_nonempty_gt_mean": 0.5511434301191335,
+  "tp": 1013954,
+  "fp": 358973,
+  "fn": 396659,
+  "tn": 5439374,
+  "threshold_probability": 0.5,
+  "metric_note": "Pixel-region metrics at resized resolution. Per-image empty prediction + empty GT scores 1. Not boundary F or a certified reproduction of Table II."
+}

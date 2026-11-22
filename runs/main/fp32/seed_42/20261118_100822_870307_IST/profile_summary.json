@@ -1,0 +1,25 @@
+{
+  "conv_macs": 736509952,
+  "conv_flops_2mac": 1473019904,
+  "bias_adds": 17457152,
+  "other_arithmetic_flops": 28688384,
+  "erf_evaluations": 3080192,
+  "pool_comparisons": 3047424,
+  "upsample_output_copies": 4063232,
+  "parameters": 878417,
+  "trainable_parameters": 878417,
+  "parameter_bytes_fp32": 3513668,
+  "input_shape": [
+    1,
+    3,
+    256,
+    256
+  ],
+  "skip_tensor_elements_total": 2031616,
+  "skip_tensor_bytes_at_8bit": 2031616,
+  "skip_tensor_bytes_fp32": 8126464,
+  "first_skip_bytes_at_8bit": 1048576,
+  "estimated_arithmetic_flops_excluding_erf_and_memory": 1519165440,
+  "convention": "1 MAC = 2 FLOPs. Conv bias adds extra. BN eval affine=2/element; GELU=4 arithmetic ops plus one separately counted erf. Pool comparisons and memory copies excluded from FLOPs. Concatenation traffic, allocation, quantize/requantize, optimizer/backward cost and hardware overhead are not counted.",
+  "note": "Architecture workload per image, not measured FPGA throughput. Sum of output bytes is not peak live memory. Parameter tensor inventories are separate CSVs."
+}
