@@ -1,0 +1,27 @@
+{
+  "official_download_url": "https://drive.google.com/file/d/1uEnlqKrlt6lITc_i80NTtb7iHGcO47sU/view?usp=sharing",
+  "official_source_page": "https://irvlab.cs.umn.edu/resources/suim-dataset",
+  "archive_name": "SUIM.zip",
+  "archive_bytes": 5245090436,
+  "counts": {
+    "train_val/images": 1525,
+    "train_val/masks": 1525,
+    "TEST/images": 110,
+    "TEST/masks": 110
+  },
+  "sample_saliency_checks": [
+    {
+      "rgb_mask": "TEST/masks/n_l_3_.bmp",
+      "stored_saliency": "TEST/masks/Saliency/n_l_3_.bmp",
+      "different_pixels": 0,
+      "pixels": 307200
+    },
+    {
+      "rgb_mask": "TEST/masks/w_r_3_.bmp",
+      "stored_saliency": "TEST/masks/Saliency/w_r_3_.bmp",
+      "different_pixels": 0,
+      "pixels": 307200
+    }
+  ],
+  "inspection_note": "ZIP directory plus 10 sampled RGB masks inspected; not a full dataset-content audit. Some original masks contain noncanonical RGB levels; decode each channel using >127.5 before applying the paper saliency grouping."
+}

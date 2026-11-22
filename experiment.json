@@ -1,0 +1,23 @@
+{
+  "dataset_root": "/home/robotics/sabana/Project_v2/Dataset",
+  "train_images": "train_val/images",
+  "train_masks": "train_val/masks",
+  "test_images": "TEST/images",
+  "test_masks": "TEST/masks",
+  "run_root": "runs/main",
+  "image_size": 256,
+  "batch_size": 4,
+  "epochs": 100,
+  "learning_rate": 0.0001,
+  "workers": 2,
+  "cpu_threads": 4,
+  "split_seed": 42,
+  "validation_fraction": 0.2,
+  "calibration_images": 256,
+  "qat_freeze_bn_fraction": 0.5,
+  "qat_freeze_observers_fraction": 0.75,
+  "benchmark_warmup": 10,
+  "benchmark_repeats": 50,
+  "early_stopping_patience": 20,
+  "early_stopping_min_delta": 0.001
+}

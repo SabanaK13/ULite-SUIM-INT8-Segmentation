@@ -1,0 +1,3 @@
+# Install torch==2.7.1 separately using the CUDA or CPU index in README.md.
+numpy==2.2.6
+Pillow==11.2.1
